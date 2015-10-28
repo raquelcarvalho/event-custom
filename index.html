@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Criando Eventos</title>
+	<script src="https://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		//Faz chamada para ajax
+		$("p").on("click", callAjax);
+
+		//Function do ajax: Cria evento customizado e faz o ajax
+		function callAjax(e) {
+			e.preventDefault();
+			console.log('entrou');//console pra testar se entrou na função
+			$.event.trigger({
+				type: "actionsAfterAjax"
+			});
+			$.ajax({
+		        url: '/',
+		        complete: function(){
+		            $('p').css({'color':'red'}); //ao completar o ajax o elemento $(p) muda de cor
+		        }
+		    });
+		}
+
+		//Evento que fica escutando o ajax
+		$(document).on("actionsAfterAjax", function(){console.log('Aeeeeeee!!!!!!')});
+	</script>
+</head>
+<body>
+	<h3>Abra o console antes de clicar no 'clique aqui'</h3>
+	<p>Clique aqui</p>
+</body>
+</html>
